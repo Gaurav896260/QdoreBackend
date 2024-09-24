@@ -68,7 +68,11 @@
     "swiper": "^11.1.14",
     "tailwind-merge": "^2.5.2",
     "twilio": "^5.2.3",
-    "xss-clean": "^0.1.4"
+    "xss-clean": "^0.1.4",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8",
+    "vite-plugin-node-polyfills": "^0.22.0",
+    "vite-plugin-wasm": "^3.3.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
