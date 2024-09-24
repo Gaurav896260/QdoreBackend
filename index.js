@@ -19,9 +19,6 @@ import Cart from "./models/Cart.js";
 // import orderRoutes from "./routes/orderRoutes.js";
 import OTProute from "./routes/OTProute.js";
 
-console.log("RAZORPAY_KEY_ID:", process.env.RAZORPAY_KEY_ID);
-console.log("RAZORPAY_KEY_SECRET:", process.env.RAZORPAY_KEY_SECRET);
-
 // Configuration
 dotenv.config();
 connectDB();
