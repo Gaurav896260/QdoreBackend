@@ -5,7 +5,7 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 export default defineConfig({
   plugins: [
     wasm(),
-    nodePolyfills(), // Ensure that this plugin is included to provide polyfills
+    nodePolyfills(),
   ],
   build: {
     rollupOptions: {
@@ -13,20 +13,18 @@ export default defineConfig({
       output: {
         format: "esm",
       },
-      // Ensure external modules are handled properly
-      external: [
-        'stream-browserify', // Add any other external modules you may need
-        'async_hooks',
-        'worker_threads'
-      ],
+      // Ensure that stream-browserify is included in the bundle
+      output: {
+        globals: {
+          'stream-browserify': 'stream',
+        },
+      },
     },
-    // Target environment that supports top-level await
     target: "es2022",
   },
   optimizeDeps: {
     esbuildOptions: {
       target: "es2022",
-      // You can add specific conditions or options if needed
     },
   },
 });
