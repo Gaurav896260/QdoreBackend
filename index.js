@@ -28,6 +28,7 @@ connectDB();
 
 const app = express();
 app.use(cors());
+app.options('/api/users/*', cors());
 app.use(helmet());
 app.use(xss());
 
