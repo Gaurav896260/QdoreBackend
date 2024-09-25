@@ -17,7 +17,7 @@ import { authenticate } from "./middlewares/authMiddleware.js";
 import User from "./models/user.js";
 import Cart from "./models/Cart.js";
 // import orderRoutes from "./routes/orderRoutes.js";
-import OTProute from "./routes/OTProute.js";
+// import OTProute from "./routes/OTProute.js";
 
 // Configuration
 dotenv.config();
@@ -46,7 +46,7 @@ app.use("/api/send-email", mailRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api", cartRoutes);
 app.use("/api", orderRoutes);
-app.use("/api/users", OTProute);
+// app.use("/api/users", OTProute);
 // Checkout route
 app.post("/api/checkout", async (req, res) => {
   const { userId, productId, name, price, image, quantity, address } = req.body;
