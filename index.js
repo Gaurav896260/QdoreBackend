@@ -30,6 +30,10 @@ app.use(cors({
     methods: 'GET,POST,PUT,DELETE,PATCH,OPTIONS',
     allowedHeaders: ['Authorization', 'Content-Type'],
 }));
+
+// Handle preflight requests
+app.options('*', cors());
+
 app.use(helmet());
 app.use(xss());
 
