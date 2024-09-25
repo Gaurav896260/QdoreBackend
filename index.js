@@ -24,25 +24,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (origin === 'http://localhost:5173') {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: 'GET,POST,PUT,DELETE,PATCH,OPTIONS',
-  allowedHeaders: ['Authorization', 'Content-Type'], // Enable this if cookies or authentication tokens are used
-};
-
-app.use(cors(corsOptions));
-
-// Handle preflight requests
-app.options('*', cors(corsOptions));
-
-app.use(helmet());
+app.use(cors());
 app.use(xss());
 
 // Middlewares
