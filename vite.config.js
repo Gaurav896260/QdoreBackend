@@ -4,6 +4,7 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { resolve } from 'path';
 
 export default defineConfig({
+  root:'./',
   plugins: [
     wasm(),
     nodePolyfills(),  // Make sure this is being used correctly
