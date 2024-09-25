@@ -10,7 +10,7 @@ import xss from "xss-clean";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import mailRoutes from "./routes/mailRoutes.js";
-import productRoutes from "./routes/productRoutes.js";
+// import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import { authenticate } from "./middlewares/authMiddleware.js";
@@ -43,7 +43,7 @@ const PORT = process.env.PORT || 3000;
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/send-email", mailRoutes);
-app.use("/api/products", productRoutes);
+// app.use("/api/products", productRoutes);
 app.use("/api", cartRoutes);
 app.use("/api", orderRoutes);
 // app.use("/api/users", OTProute);
