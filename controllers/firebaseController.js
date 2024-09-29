@@ -11,13 +11,13 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBc6GcsUMl5JXKdXgmoauo8oAsnHh86yVg",
-  authDomain: "qdore-home2.firebaseapp.com",
-  projectId: "qdore-home2",
-  storageBucket: "qdore-home2.appspot.com",
-  messagingSenderId: "768058475197",
-  appId: "1:768058475197:web:69da0985df7e4f659dadd4",
-  measurementId: "G-Z694KGFY40",
+  apiKey: "AIzaSyBfbEawOIdbNqwhw2yhIJl0v8b0XpHwuxw",
+  authDomain: "qdore-home2-437014.firebaseapp.com",
+  projectId: "qdore-home2-437014",
+  storageBucket: "qdore-home2-437014.appspot.com",
+  messagingSenderId: "1071032802638",
+  appId: "1:1071032802638:web:5af79c9e993ad74a16d21f",
+  measurementId: "G-E2W23GMXYZ",
 };
 
 // Initialize Firebase
