@@ -127,6 +127,7 @@ const getPickupLocations = async (token) => {
 
 // Function to create an order in Shiprocket
 const createShiprocketOrder = async (order, token, pickupLocationId) => {
+  console.log("payment method", order.paymentMethod);
   // const userInfo = useSelector((state) => state.auth.userInfo);
   try {
     const user = await User.findById(order.userId);
@@ -158,7 +159,8 @@ const createShiprocketOrder = async (order, token, pickupLocationId) => {
         tax: 0,
         hsn: 441122,
       })),
-      payment_method: order.paymentMethod,
+      payment_method:
+        order.paymentMethod === "Online Payment" ? "Prepaid" : "COD",
       shipping_charges: 0,
       giftwrap_charges: 0,
       transaction_charges: 0,
@@ -564,16 +566,17 @@ const ReturnOrder = async (req, res) => {
     const { orderId } = req.params;
     console.log(`Fetching order details for orderId: ${orderId}`);
 
-    const user = await User.findById(order.userId);
-
-    if (!user) {
-      throw new Error("User not found");
-    }
     // Step 1: Fetch order details from your database
     const order = await Order.findById(orderId);
     if (!order) {
       console.log(`Order not found for orderId: ${orderId}`);
       return res.status(404).json({ message: "Order not found." });
+    }
+
+    // Now that we have the order, fetch the user
+    const user = await User.findById(order.userId);
+    if (!user) {
+      throw new Error("User not found");
     }
 
     const { shiprocketOrderId } = order;
