@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import admin from "firebase-admin";
 import User from "../models/user.js";
 import asyncHandler from "./asyncHandler.js";
-import serviceAccount from "./qdorhome-firebase-adminsdk-8d8f5-f73e0c7232.json" assert { type: "json" };
+import serviceAccount from "./qdore-home2-437014-firebase-adminsdk-r988j-b726ce468a.json" assert { type: "json" };
 
 // Initialize Firebase Admin SDK (only once)
 if (!admin.apps.length) {
