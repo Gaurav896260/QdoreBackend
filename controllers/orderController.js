@@ -578,7 +578,6 @@ const ReturnOrder = async (req, res) => {
     if (!user) {
       throw new Error("User not found");
     }
-
     const { shiprocketOrderId } = order;
     console.log(`Order found. Shiprocket Order ID: ${shiprocketOrderId}`);
 
@@ -735,6 +734,10 @@ const ReturnOrder = async (req, res) => {
 
       // Validate the response
       if (response.data && response.data.status_code === 21) {
+        // Update order status in MongoDB
+        order.orderStatus = "RETURN PENDING";
+        await order.save();
+
         // Construct a response object to match the expected response structure
         const returnResponse = {
           order_id: response.data.order_id,
@@ -782,6 +785,7 @@ const ReturnOrder = async (req, res) => {
     });
   }
 };
+
 const createBuynowOrder = async (req, res) => {
   const { userId, address, items, paymentId, paymentMethod } = req.body;
 
@@ -890,6 +894,62 @@ const createBuynowOrder = async (req, res) => {
   }
 };
 
+const getShiprocketResponse = async (req, res) => {
+  const { orderId } = req.params; // Assuming you are passing orderId as a route parameter
+  const ShiprocketToken = await getShiprocketToken();
+  const order = await Order.findById(orderId);
+  if (!order) {
+    console.log(`Order not found for orderId: ${orderId}`);
+    return res.status(404).json({ message: "Order not found." });
+  }
+
+  const { shiprocketOrderId } = order;
+
+  console.log(`Shiprocket Token retrieved: ${ShiprocketToken ? "Yes" : "No"}`);
+
+  try {
+    // Log the request details
+    console.log(
+      `Making GET request to Shiprocket API for order ID: ${orderId}`
+    );
+
+    const productResponse = await axios.get(
+      `https://apiv2.shiprocket.in/v1/external/orders/show/${shiprocketOrderId}`, // Use orderId directly
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${ShiprocketToken}`,
+        },
+      }
+    );
+
+    // Log the response data
+    console.log("Shiprocket order response:", productResponse.data);
+
+    if (!productResponse.data) {
+      throw new Error("No data received from Shiprocket API.");
+    }
+
+    // Extract necessary data from Shiprocket response
+    const ShiprocketOrder = productResponse.data;
+    const shiprocketOrder = ShiprocketOrder.data;
+
+    // Send the response back to the client
+    res.status(200).json({
+      success: true,
+      data: {
+        orderDetails: shiprocketOrder, // You can send specific data if needed
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching Shiprocket order details:", error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message || "Error fetching Shiprocket order details.",
+    });
+  }
+};
+
 export {
   createOrder,
   getOrder,
@@ -900,4 +960,5 @@ export {
   ReturnOrder,
   DownloadInvoice,
   createBuynowOrder,
+  getShiprocketResponse,
 };
