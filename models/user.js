@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs"; // Import bcrypt for password hashing
 
 const addressSchema = mongoose.Schema({
   addressLine1: {
@@ -39,6 +40,11 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
+    password: {
+      type: String,
+      required: true,
+      minlength: 6, // Minimum password length
+    },
     isAdmin: {
       type: Boolean,
       required: true,
@@ -56,7 +62,6 @@ const userSchema = mongoose.Schema(
         ref: "Order",
       },
     ],
-
     fbUserId: {
       type: String, // Add this field if you want to store the Firebase ID separately
       required: true,
