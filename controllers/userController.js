@@ -255,17 +255,16 @@ const savingNameAndEmailAfterSignInViaPhone = async (req, res) => {
     res.status(500).json({ error: "Failed to save user profile" });
   }
 };
-
 const getUserbyemail = async (req, res) => {
   const email = req.params.email;
+  console.log("Email received:", email); // This log should confirm receipt of the email
 
   try {
-    const user = await User.findOne({ email: email }); // Assuming you're using Mongoose
-
+    const user = await User.findOne({ email: email });
     if (!user) {
+      console.log("User not found for email:", email); // Log if user is not found
       return res.status(404).json({ message: "User not found" });
     }
-
     res.status(200).json({ user });
   } catch (error) {
     console.error("Error fetching user:", error);
@@ -320,12 +319,11 @@ const NumberExistorNot = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
-
 const savinguseraftergmail = async (req, res) => {
-  const { username, mobile, email, fbUserId } = req.body;
+  const { username, mobile, email, fbUserId, password } = req.body;
 
   // Validate required fields
-  if (!username || !mobile || !email || !fbUserId) {
+  if (!username || !mobile || !email || !fbUserId || !password) {
     return res.status(400).json({ message: "All fields are required." });
   }
 
@@ -344,12 +342,16 @@ const savinguseraftergmail = async (req, res) => {
         : `+91${mobile}`;
     }
 
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+
     // Create a new user
     const newUser = new User({
       username,
       mobile: formattedMobile,
       email,
       fbUserId,
+      password: hashedPassword, // Save the hashed password
       isAdmin: false, // Set to true if needed
       profileComplete: true, // Adjust based on your requirements
     });
@@ -362,6 +364,41 @@ const savinguseraftergmail = async (req, res) => {
   } catch (error) {
     console.error("Error adding user:", error);
     res.status(500).json({ message: "Internal server error." });
+  }
+};
+
+const verifyPassword = async (req, res) => {
+  const { phone, password } = req.body; // Assuming phone and password are sent in the request body
+
+  try {
+    // Find the user by phone number
+    const user = await User.findOne({ mobile: phone });
+
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    console.log("Stored hashed password:", user.password); // Log the hashed password
+    console.log("Entered password:", password); // Log the entered password
+
+    // Compare the entered password with the stored hashed password
+    const isValid = await bcrypt.compare(password, user.password);
+
+    if (isValid) {
+      console.log("ye sahi hai galat kuch aur hai");
+    }
+
+    if (isValid) {
+      // Generate a token if needed
+      return res.json({ isValid: true });
+    } else {
+      console.error("Incorrect password"); // Log incorrect password
+      return res.status(401).json({ message: "Incorrect password" }); // Return unauthorized status
+    }
+  } catch (error) {
+    console.error("Error verifying password:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 export {
@@ -378,4 +415,5 @@ export {
   exportObjectIdviafId,
   NumberExistorNot,
   savinguseraftergmail,
+  verifyPassword,
 };
