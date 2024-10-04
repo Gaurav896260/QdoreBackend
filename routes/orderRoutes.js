@@ -12,6 +12,7 @@ import {
   ReturnOrder,
   DownloadInvoice,
   createBuynowOrder,
+  getShiprocketResponse,
 } from "../controllers/orderController.js";
 
 const router = express.Router();
@@ -20,6 +21,7 @@ router.post("/users/orders", authenticate, createOrder);
 router.post("/users/buynoworder", authenticate, createBuynowOrder);
 router.get("/users/orders/:userId", authenticate, getOrder);
 router.get("/orders/:orderId", getOrderById);
+router.get("/orders/:orderId/shiprocketresponse", getShiprocketResponse);
 router.patch("/orders/:orderId/cancel", authenticate, cancelOrder);
 router.get("/orders/:orderId/track", authenticate, TrackOrder);
 router.patch("/orders/:orderId/return", authenticate, ReturnOrder);
