@@ -14,6 +14,7 @@ import {
   exportObjectIdviafId,
   NumberExistorNot,
   savinguseraftergmail,
+  verifyPassword,
 } from "../controllers/userController.js";
 import { authenticate, authorizeAdmin } from "../middlewares/authMiddleware.js";
 import User from "../models/user.js";
@@ -39,6 +40,7 @@ router.get("/email/:email", getUserbyemail);
 router.get("/objectIdexport", exportObjectIdviafId);
 router.get("/addresses/:userId", authenticate, getAddressesByUserId);
 router.get("/phone/:phoneNumber", NumberExistorNot);
+router.post("/auth/verifyPassword", verifyPassword);
 router.post("/save-address", saveAddress);
 
 router.post("/auth/token", async (req, res) => {
