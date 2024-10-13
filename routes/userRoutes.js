@@ -15,6 +15,9 @@ import {
   NumberExistorNot,
   savinguseraftergmail,
   verifyPassword,
+  updateUserProfile,
+  changePassword,
+  forgotPassword,
 } from "../controllers/userController.js";
 import { authenticate, authorizeAdmin } from "../middlewares/authMiddleware.js";
 import User from "../models/user.js";
@@ -42,6 +45,9 @@ router.get("/addresses/:userId", authenticate, getAddressesByUserId);
 router.get("/phone/:phoneNumber", NumberExistorNot);
 router.post("/auth/verifyPassword", verifyPassword);
 router.post("/save-address", saveAddress);
+router.put("/update-profile/:id", updateUserProfile);
+router.put("/change-password/:id", changePassword);
+router.put("/forgot-password", forgotPassword);
 
 router.post("/auth/token", async (req, res) => {
   const { userId } = req.body;
