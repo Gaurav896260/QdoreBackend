@@ -8,9 +8,10 @@ import { useSelector } from "react-redux";
 
 // Initialize Razorpay instance with your credentials
 const razorpay = new Razorpay({
-  key_id: "rzp_test_CYxrsd4LgcyNmb",
-  key_secret: "8WKW25kWMqAcofp1GgeOOudw",
+  key_id: "rzp_test_zPuKJO5swQzP4R",
+  key_secret: "SKTelFcAla4qgjF8bZvsxVq8",
 });
+
 
 // Shiprocket credentials and API URL
 const SHIPROCKET_API_URL = "https://apiv2.shiprocket.in/v1/external";
