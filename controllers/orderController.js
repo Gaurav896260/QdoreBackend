@@ -14,7 +14,7 @@ const razorpay = new Razorpay({
 
 // Shiprocket credentials and API URL
 const SHIPROCKET_API_URL = "https://apiv2.shiprocket.in/v1/external";
-const SHIPROCKET_EMAIL = "202252316@iiitvadodara.ac.in";
+const SHIPROCKET_EMAIL = "202252342@iiitvadodara.ac.in";
 const SHIPROCKET_PASSWORD = "Devprabha@8962";
 
 // Function to authenticate with Shiprocket
