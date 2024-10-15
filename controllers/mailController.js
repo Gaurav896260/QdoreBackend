@@ -16,7 +16,7 @@ const sendEmail = asyncHandler(async (req, res) => {
 
   const mailOptions = {
     from: "shuklag868@gmail.com",
-    to: "",
+    to: "qdorehome@gmail.com",
     subject: "New Contact Message",
     html: `<p>New message from: <strong>${name}</strong></p>
            <p>Email: ${email}</p>
