@@ -10,13 +10,13 @@ const sendEmail = asyncHandler(async (req, res) => {
     secure: false,
     auth: {
       user: "shuklag868@gmail.com",
-      pass: "Y6yaArmqMPvRtJQw", // Use your SMTP Master Password
+      pass: "fkhE30M6ycGJ7zXZ", // Use your SMTP Master Password
     },
   });
 
   const mailOptions = {
     from: "shuklag868@gmail.com",
-    to: "202252316@iiitvadodara.ac.in",
+    to: "",
     subject: "New Contact Message",
     html: `<p>New message from: <strong>${name}</strong></p>
            <p>Email: ${email}</p>
